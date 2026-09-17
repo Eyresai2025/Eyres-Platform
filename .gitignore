@@ -13,4 +13,14 @@ Inferences
 .pyc
 __pycache__/
 captures
+.env
+.env.example
+.env.template
+# Environment / secrets
+.env
+.env.local
+.env.production
+.env.development
 
+# Keep template tracked
+!.env.example
