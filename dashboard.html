@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Training Results Dashboard</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='8' fill='%230ea5e9'/%3E%3C/svg%3E"/>
+
+<!-- Tailwind (OK for dev; compile for prod) -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{panel:'#0f172a',line:'#253142'}}}};</script>
+
+<!-- Highcharts: core first, then exporting, THEN export-data, then optional modules -->
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/annotations.js"></script>
+
+<!-- YAML -->
+<script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+
+<style>
+  :root[data-theme="light"]{
+    --bg:#ffffff; --fg:#0f172a; --muted:#475569;
+    --panel:#ffffff; --line:#e5e7eb; --grid:#e5e7eb;
+    --glass:linear-gradient(180deg,rgba(255,255,255,.9),rgba(255,255,255,.9));
+    --chip:#0369a1; --thumbcap:#00000066; --tooltip:#ffffff;
+  }
+  :root[data-theme="dark"]{
+    --bg:#0f1419; --fg:#e5e7eb; --muted:#94a3b8;
+    --panel:#0f172a; --line:#253142; --grid:#223;
+    --glass:linear-gradient(90deg,rgba(30,41,59,.55),rgba(15,23,42,.55));
+    --chip:#38bdf8; --thumbcap:#ffffff66; --tooltip:#111827;
+  }
+  html,body{height:100%;background:var(--bg);color:var(--fg)}
+  .glass{background:var(--glass);border:1px solid var(--line);border-radius:14px}
+  .bg-panel{background-color:var(--panel)!important}
+  .border-line{border-color:var(--line)!important}
+  .text-muted{color:var(--muted)!important}
+  .chart{min-height:280px}
+  .thumb img{height:140px;object-fit:cover}
+  .thumb{cursor:zoom-in}
+  .modal{position:fixed;inset:0;background:rgba(0,0,0,.86);display:none;align-items:center;justify-content:center;z-index:50}
+  .modal.open{display:flex}
+  .modal img{max-width:92vw;max-height:90vh;transform-origin:center;cursor:grab}
+  .chip{border:1px solid var(--chip);color:var(--chip)}
+  .thumbcap{background:var(--thumbcap)}
+
+  /* Logo */
+  #brandLogo{
+    max-height:56px; width:auto; object-fit:contain;
+    filter: drop-shadow(0 1px 1px rgba(0,0,0,.2));
+  }
+</style>
+</head>
+<body class="min-h-screen">
+<div class="flex min-h-screen">
+  <!-- Sidebar - Always visible and narrower -->
+  <!-- CHANGE THIS VALUE: w-56 (14rem) - adjust as needed -->
+  <aside id="sidebar" class="w-56 bg-panel border-r border-line flex flex-col">
+    <!-- COMPANY LOGO ONLY -->
+    <div class="px-3 py-4 border-b border-line flex items-center justify-center">
+      <img id="brandLogo" alt="Company Logo"/>
+    </div>
+
+    <!-- CHANGE THESE VALUES: px-3 for horizontal padding -->
+    <div class="px-3 py-3 text-xs uppercase tracking-wide text-muted">Runs</div>
+    <div id="runList" class="px-2 pb-4 overflow-auto grow space-y-1">
+      <div class="text-muted text-sm px-3 py-2">Waiting for runs…</div>
+    </div>
+    <div class="px-3 py-3 border-t border-line text-xs text-muted flex items-center gap-2">
+      <label class="flex items-center gap-2 select-none">
+        <input id="autoRefresh" type="checkbox" class="accent-sky-500"> Auto-refresh
+      </label>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="flex-1 flex flex-col min-w-0">
+    <!-- Header / controls -->
+    <div class="flex items-center gap-3 px-3 py-3 bg-panel border-b border-line">
+      <div class="text-sm font-semibold">Training Dashboard</div>
+
+      <div class="ml-auto flex items-center gap-2">
+        <!-- ORDER: Select base folder → Run select → Theme -->
+        <label id="pickerTop" class="px-3 py-2 rounded-lg border border-line bg-panel text-sm cursor-pointer">
+          <input id="baseDirTop" class="hidden" type="file" webkitdirectory directory multiple />
+          Select base folder
+        </label>
+        <!-- CHANGE THIS VALUE: min-w-[180px] for select width -->
+        <select id="runSelect" class="px-3 py-2 rounded-lg border border-line bg-panel text-sm min-w-[180px]">
+          <option value="">No run</option>
+        </select>
+        <button id="themeBtn" class="px-3 py-2 rounded-lg border border-line bg-panel text-sm" title="Toggle theme">☀︎ / 🌙</button>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="p-3 space-y-3">
+      <!-- KPI cards -->
+      <section class="glass p-3">
+        <div class="flex items-center gap-2">
+          <h3 class="text-lg font-semibold">Run summary</h3>
+          <span id="kpiRun" class="ml-2 text-xs px-2 py-1 rounded-full chip">—</span>
+        </div>
+        <div class="mt-3 grid grid-cols-2 md:grid-cols-4 gap-2">
+          <div class="glass p-3"><div class="text-xs text-muted">Epochs</div><div id="kpiEpochs" class="text-xl font-bold">—</div></div>
+          <div class="glass p-3"><div class="text-xs text-muted">Best mAP50-95 (B)</div><div id="kpiMap" class="text-xl font-bold">—</div></div>
+          <div class="glass p-3"><div class="text-xs text-muted">Final Precision (B)</div><div id="kpiPrec" class="text-xl font-bold">—</div></div>
+          <div class="glass p-3"><div class="text-xs text-muted">Images found</div><div id="kpiImgs" class="text-xl font-bold">0</div></div>
+        </div>
+      </section>
+
+      <!-- YAML + Files -->
+      <section class="grid grid-cols-1 lg:grid-cols-2 gap-3">
+        <div class="glass p-3">
+          <div class="text-xs text-muted mb-1">YAML (key params)</div>
+          <div class="text-sm grid grid-cols-2 gap-x-3 gap-y-1">
+            <div class="text-muted">task</div><div id="yTask">—</div>
+            <div class="text-muted">model</div><div id="yModel" class="truncate">—</div>
+            <div class="text-muted">data</div><div id="yData" class="truncate">—</div>
+            <div class="text-muted">imgsz</div><div id="yImg">—</div>
+            <div class="text-muted">batch</div><div id="yBatch">—</div>
+            <div class="text-muted">optimizer</div><div id="yOpt">—</div>
+            <div class="text-muted">lr0</div><div id="yLR">—</div>
+            <div class="text-muted">device</div><div id="yDev">—</div>
+          </div>
+        </div>
+        <div class="glass p-3">
+          <div class="flex items-center justify-between mb-2">
+            <div class="text-xs text-muted">Files detected</div>
+            <button id="downloadCsv" class="px-2 py-1 border border-line rounded text-xs bg-panel">Download CSV</button>
+          </div>
+          <div id="fileList" class="text-xs max-h-40 overflow-auto space-y-0.5"></div>
+        </div>
+      </section>
+
+      <!-- Graphs -->
+      <section class="grid grid-cols-1 lg:grid-cols-2 gap-3">
+        <div class="glass p-3"><h3 class="text-lg font-semibold">Losses</h3><div id="lossChart" class="chart"></div></div>
+        <div class="glass p-3"><h3 class="text-lg font-semibold">mAP & PR</h3><div id="mapChart" class="chart"></div></div>
+        <div class="glass p-3"><h3 class="text-lg font-semibold">Precision & Recall (B / M)</h3><div id="prChart" class="chart"></div></div>
+        <div class="glass p-3"><h3 class="text-lg font-semibold">Learning Rates</h3><div id="lrChart" class="chart"></div></div>
+      </section>
+
+      <!-- Images -->
+      <section class="glass p-3">
+        <div class="flex items-center justify-between">
+          <h3 class="text-lg font-semibold">Images</h3>
+          <span id="imgCount" class="text-xs px-2 py-1 rounded-full chip">0</span>
+        </div>
+        <div id="gallery" class="mt-3 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-2"></div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<!-- Modal -->
+<div id="modal" class="modal"><img id="modalImg" src="" alt=""></div>
+
+<script>
+(() => {
+  // ---------- theme ----------
+  const root = document.documentElement;
+  const saved = localStorage.getItem('dashTheme');
+  // Default to dark theme if no saved preference
+  if (!saved) {
+    root.setAttribute('data-theme', 'dark');
+    localStorage.setItem('dashTheme', 'dark');
+  } else if (saved === 'dark' || saved === 'light') {
+    root.setAttribute('data-theme', saved);
+  }
+  
+  function applyHC(){
+    const isDark = root.getAttribute('data-theme')==='dark';
+    Highcharts.setOptions({
+      chart:{backgroundColor:'transparent'},
+      title:{style:{color: isDark?'#e5e7eb':'#0f172a'}},
+      xAxis:{labels:{style:{color:isDark?'#cbd5e1':'#334155'}}, gridLineColor:getComputedStyle(root).getPropertyValue('--grid')},
+      yAxis:{labels:{style:{color:isDark?'#cbd5e1':'#334155'}}, gridLineColor:getComputedStyle(root).getPropertyValue('--grid')},
+      legend:{itemStyle:{color: isDark?'#dbe7ff':'#0f172a'}},
+      tooltip:{backgroundColor:getComputedStyle(root).getPropertyValue('--tooltip'), style:{color:isDark?'#e5e7eb':'#0f172a'}}
+    });
+  }
+  applyHC();
+  document.getElementById('themeBtn').onclick=()=>{const next=root.getAttribute('data-theme')==='dark'?'light':'dark';root.setAttribute('data-theme',next);localStorage.setItem('dashTheme',next);applyHC();Highcharts.charts.forEach(ch=>ch&&ch.redraw&&ch.redraw());};
+
+  // ---------- API / logo ----------
+  const qs=new URLSearchParams(location.search);
+  const frag=new URLSearchParams(location.hash.startsWith('#')?location.hash.substring(1):location.hash);
+  const hostIsLocal=new RegExp('^(127\\.0\\.0\\.1|localhost)$','i').test(location.hostname);
+  const sameOriginApi=(location.protocol.startsWith('http')&&hostIsLocal)?location.origin:'';
+  const API_BASE=qs.get('api')||frag.get('api')||sameOriginApi;
+
+  const DEFAULT_LOGO = 'Media/LOGO-02.png'; // relative fallback
+  const logoParam = qs.get('logo') || frag.get('logo') || 'E:\\Office\\Desktop\\My files\\project files\\AI pipline\\Media\\LOGO-02.png';
+  function apiFileUrl(rel){ return `${API_BASE}/file?path=${encodeURIComponent(rel)}`; }
+  const logoEl=document.getElementById('brandLogo');
+  if (API_BASE) { logoEl.src = apiFileUrl(logoParam); }
+  else          { logoEl.src = logoParam || DEFAULT_LOGO; }
+
+  // ---------- state ----------
+  let mode = API_BASE ? 'api' : 'files';
+  let subfolders = [], currentRun=null, csvBlobForDownload=null, baseFiles=[], timer=null;
+
+  const $=(s)=>document.querySelector(s);
+  [$('#baseDirTop')].forEach(inp=>inp&&inp.addEventListener('change', onPickBase));
+  $('#autoRefresh').addEventListener('change', autoRefreshTick);
+  $('#runSelect').onchange=(e)=>selectRunByName(e.target.value);
+  $('#downloadCsv').onclick=onDownloadCsv;
+
+  function autoRefreshTick(){ if (timer){clearInterval(timer);timer=null;} if ($('#autoRefresh').checked){ timer=setInterval(()=> (mode==='api'?loadFromApi():refreshFromMemory()),8000);} }
+
+  // ---------- API mode ----------
+  async function loadFromApi(){
+    try{
+      const res=await fetch(`${API_BASE}/index`,{cache:'no-store'});
+      const j=await res.json();
+      subfolders=(j.runs||[]).map(run=>({name:run.name,files:run.files,mtime:typeof run.mtime==='number'?run.mtime:0}));
+      renderRunList();
+      if(subfolders.length){ selectRun(latestByMtimeIndex(subfolders)); }
+    }catch(e){
+      console.error(e);
+      $('#runList').innerHTML='<div class="text-muted text-sm px-3 py-2">Could not reach API.</div>';
+    }
+  }
+  async function apiReadText(rel){ const r=await fetch(`${API_BASE}/file?path=${encodeURIComponent(rel)}`,{cache:'no-store'}); return r.text(); }
+  function latestByMtimeIndex(items){
+    if(!items.length)return 0; let best=0,bestT=-Infinity;
+    for(let i=0;i<items.length;i++){ const t=typeof items[i].mtime==='number'?items[i].mtime:-Infinity; if(t>bestT){bestT=t;best=i;} }
+    if(!isFinite(bestT)||bestT<=0){ return naturalLatestIndex(items.map(s=>s.name)); }
+    return best;
+  }
+
+  // ---------- Files mode ----------
+  function onPickBase(e){
+    mode='files'; resetAll();
+    baseFiles=Array.from(e.target.files||[]);
+    buildSubfolderIndex(); renderRunList();
+    if(subfolders.length){ selectRun(naturalLatestIndex(subfolders.map(s=>s.name))); }
+  }
+  function refreshFromMemory(){ if(!baseFiles.length)return; buildSubfolderIndex(); renderRunList(); if(currentRun){ const i=subfolders.findIndex(s=>s.name===currentRun.name); if(i>=0) selectRun(i);} }
+  function buildSubfolderIndex(){
+    const buckets=new Map();
+    for(const f of baseFiles){
+      const rp=(f.webkitRelativePath||f.name).replace(/\\/g,'/'); const parts=rp.split('/'); if(parts.length<2)continue;
+      const top=parts[1]; if(!/^train/i.test(top))continue; if(!buckets.has(top))buckets.set(top,[]); buckets.get(top).push(f);
+    }
+    subfolders=Array.from(buckets.entries()).map(([name,files])=>({name,files}))
+      .sort((a,b)=>a.name.localeCompare(b.name,undefined,{numeric:true}));
+  }
+
+  // ---------- Common ----------
+  function renderRunList(){
+    const list=$('#runList'); const sel=$('#runSelect');
+    sel.innerHTML='<option value="">Select run…</option>';
+    if(!subfolders.length){ list.innerHTML='<div class="text-muted text-sm px-3 py-2">No train* folders found.</div>'; return; }
+    list.innerHTML='';
+    subfolders.forEach((sf,idx)=>{
+      const btn=document.createElement('button');
+      btn.className='w-full text-left px-3 py-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 text-sm border border-transparent hover:border-line';
+      btn.textContent=sf.name; btn.onclick=()=>selectRun(idx);
+      list.appendChild(btn);
+      const opt=document.createElement('option'); opt.value=sf.name; opt.textContent=sf.name; sel.appendChild(opt);
+    });
+  }
+  function naturalLatestIndex(names){
+    const parsed=names.map((n,i)=>({i,n,num:parseInt((n.match(/\d+/)||['0'])[0],10)}));
+    parsed.sort((a,b)=>a.num===b.num? a.n.localeCompare(b.n,undefined,{numeric:true}) : a.num-b.num);
+    return parsed.length? parsed[parsed.length-1].i : 0;
+  }
+  function selectRun(idx){ currentRun=subfolders[idx]; $('#runSelect').value=currentRun.name; $('#kpiRun').textContent=currentRun.name; loadRun(currentRun); }
+  function selectRunByName(name){ const idx=subfolders.findIndex(s=>s.name===name); if(idx>=0) selectRun(idx); }
+  function resetCharts(){ Highcharts.charts.forEach(ch=>ch&&ch.destroy&&ch.destroy()); }
+  function resetAll(){ resetCharts(); $('#gallery').innerHTML=''; ['kpiEpochs','kpiMap','kpiPrec','kpiImgs'].forEach(id=>$('#'+id).textContent='—'); ['yTask','yModel','yData','yImg','yBatch','yOpt','yLR','yDev'].forEach(id=>$('#'+id).textContent='—'); $('#fileList').innerHTML=''; $('#imgCount').textContent='0'; csvBlobForDownload=null; }
+
+  async function loadRun(sf){
+    resetAll();
+    let rels=[];
+    if(API_BASE){
+      rels=sf.files.filter(k=>{ const lower=k.toLowerCase(); if(!lower.startsWith(`${sf.name.toLowerCase()}/`))return false; return /(results\.csv|args\.ya?ml|confusion_matrix.*\.png|labels.*\.(png|jpg)|train_batch\d+\.jpg|val_.*\.(png|jpg))$/.test(lower); });
+    }else{
+      const names=sf.files.map(f=>(f.webkitRelativePath||f.name).replace(/\\/g,'/'));
+      rels=names.filter(k=>/(results\.csv|args\.ya?ml|confusion_matrix.*\.png|labels.*\.(png|jpg)|train_batch\d+\.jpg|val_.*\.(png|jpg))$/i.test(k));
+    }
+
+    const argsRel=rels.find(p=>/\/args\.ya?ml$/i.test(p));
+    if(argsRel){
+      try{
+        const text=API_BASE? await apiReadText(argsRel) : await (sf.files.find(f=>(f.webkitRelativePath||f.name).replace(/\\/g,'/')===argsRel)).text();
+        const y=jsyaml.load(text)||{};
+        setText('yTask',y.task??y.mode??'—'); setText('yModel',y.model??'—'); setText('yData',y.data??'—');
+        setText('yImg',y.imgsz??'—'); setText('yBatch',y.batch??'—'); setText('yOpt',y.optimizer??'—'); setText('yLR',y.lr0??'—'); setText('yDev',y.device??'—');
+      }catch(e){}
+    }
+
+    const csvRel=rels.find(p=>/\/results\.csv$/i.test(p));
+    if(csvRel){
+      const csvText=API_BASE? await apiReadText(csvRel) : await (sf.files.find(f=>(f.webkitRelativePath||f.name).replace(/\\/g,'/')===csvRel)).text();
+      plotFromCSV(csvText); csvBlobForDownload=new Blob([csvText],{type:"text/csv"}); document.getElementById('downloadCsv').dataset.run=sf.name;
+    }
+
+    document.getElementById('fileList').innerHTML=rels.map(k=>`<div>• ${k.split('/').slice(1).join('/')}</div>`).join('')||'—';
+
+    const imgRels=(API_BASE? sf.files : sf.files.map(f=>f.webkitRelativePath||f.name)).filter(p=>/\.(png|jpg|jpeg)$/i.test(p));
+    const gallery=document.getElementById('gallery'); gallery.innerHTML=''; let count=0;
+    for(const rel of imgRels){
+      const url=API_BASE? `${API_BASE}/file?path=${encodeURIComponent(rel)}` : URL.createObjectURL(sf.files.find(f=>(f.webkitRelativePath||f.name)===rel));
+      const name=rel.split('/').pop();
+      const card=document.createElement('div');
+      card.className='thumb glass overflow-hidden';
+      card.innerHTML=`<img src="${url}" alt="${name}" class="w-full"><div class="px-2 py-1 text-[11px] text-white thumbcap">${name}</div>`;
+      card.onclick=()=>openModal(url,name); gallery.appendChild(card); count++;
+    }
+    document.getElementById('imgCount').textContent=String(count);
+    document.getElementById('kpiImgs').textContent=String(count);
+  }
+
+  function setText(id,v){ document.getElementById(id).textContent=v; }
+  function parseCSV(text){ const lines=text.split(/\r?\n/).filter(Boolean); if(!lines.length) return {header:[],rows:[]}; const header=lines[0].split(',').map(x=>x.trim()); const rows=lines.slice(1).map(l=>l.split(',').map(x=>x.trim())); return {header,rows}; }
+  function pick(hm,...c){ for(const k of c){ if(hm.has(k)) return hm.get(k);} return null; }
+  function getSeries(rows,idx){ return idx==null?null: rows.map(r=>parseFloat(r[idx]||'0')); }
+
+  function drawSpline(el,ytitle,epochs,series,ymax=null,ytype=null){
+    Highcharts.chart(el,{chart:{backgroundColor:'transparent',zoomType:'x',animation:true},title:{text:null},
+      xAxis:{categories:epochs,title:{text:'epoch'},gridLineColor:getComputedStyle(root).getPropertyValue('--grid')},
+      yAxis:{title:{text:ytitle},gridLineColor:getComputedStyle(root).getPropertyValue('--grid'),max:ymax,type:ytype||'linear'},
+      legend:{itemStyle:{color:getComputedStyle(root).getPropertyValue('--fg')||'#0f172a'}},
+      credits:{enabled:false},exporting:{enabled:true},tooltip:{shared:true,backgroundColor:getComputedStyle(root).getPropertyValue('--tooltip')},
+      series:series.map(s=>({type:'spline',...s}))});
+  }
+
+  function plotFromCSV(text){
+    const {header,rows}=parseCSV(text); if(!header.length||!rows.length){resetCharts();return;}
+    const hmap=new Map(header.map((h,i)=>[h,i])); const epochs=rows.map((_,i)=>i+1);
+    document.getElementById('kpiEpochs').textContent=String(epochs.length);
+
+    const sLoss=[['train/box',pick(hmap,'train/box_loss','train/box_l','train/box')],
+      ['train/cls',pick(hmap,'train/cls_loss','train/cls_l','train/cls')],
+      ['train/seg',pick(hmap,'train/seg_loss','train/seg_l','train/seg')],
+      ['train/dfl',pick(hmap,'train/dfl_loss','train/dfl_l','train/dfl')],
+      ['val/box',pick(hmap,'val/box_loss','val/box_l','val/box')],
+      ['val/cls',pick(hmap,'val/cls_loss','val/cls_l','val/cls')],
+      ['val/seg',pick(hmap,'val/seg_loss','val/seg_l','val/seg')],
+      ['val/dfl',pick(hmap,'val/dfl_loss','val/dfl_l','val/dfl')],].map(([n,i])=>i!=null?{name:n,data:getSeries(rows,i)}:null).filter(Boolean);
+    drawSpline('lossChart','Loss',epochs,sLoss);
+
+    const mpB=getSeries(rows,pick(hmap,'metrics/mAP50(B)'));
+    const mapB=getSeries(rows,pick(hmap,'metrics/mAP50-95(B)'));
+    const mpM=getSeries(rows,pick(hmap,'metrics/mAP50(M)'));
+    const mapM=getSeries(rows,pick(hmap,'metrics/mAP50-95(M)'));
+    const prSeries=[mpB&&{name:'mAP50(B)',data:mpB},mapB&&{name:'mAP50-95(B)',data:mapB},mpM&&{name:'mAP50(M)',data:mpM},mapM&&{name:'mAP50-95(M)',data:mapM}].filter(Boolean);
+    drawSpline('mapChart','Score',epochs,prSeries,1.0);
+
+    const pB=getSeries(rows,pick(hmap,'metrics/precision(B)')), rB=getSeries(rows,pick(hmap,'metrics/recall(B)'));
+    const pM=getSeries(rows,pick(hmap,'metrics/precision(M)')), rM=getSeries(rows,pick(hmap,'metrics/recall(M)'));
+    const prBM=[pB&&{name:'precision(B)',data:pB},rB&&{name:'recall(B)',data:rB},pM&&{name:'precision(M)',data:pM},rM&&{name:'recall(M)',data:rM}].filter(Boolean);
+    drawSpline('prChart','P/R',epochs,prBM,1.0);
+
+    const last=a=>a&&a.length?a[a.length-1]:null;
+    const bestMap=Math.max(...(mapB||[0]),...(mapM||[0])); document.getElementById('kpiMap').textContent=isFinite(bestMap)?bestMap.toFixed(4):'—';
+    const lastPrec=last(pB)??last(pM); document.getElementById('kpiPrec').textContent=(lastPrec!=null&&isFinite(lastPrec))?lastPrec.toFixed(4):'—';
+
+    const lrCols=header.map((h,i)=>({h,i})).filter(o=>/^lr\/pg\d+$/i.test(o.h));
+    const lrSeries=lrCols.map(({h,i})=>({name:h,data:rows.map(r=>parseFloat(r[i]||'0'))}));
+    drawSpline('lrChart','lr',epochs,lrSeries,null,'logarithmic');
+  }
+
+  function onDownloadCsv(){ if(!csvBlobForDownload)return; const a=document.createElement('a'); const run=this.dataset.run||'run'; const url=URL.createObjectURL(csvBlobForDownload); a.href=url; a.download=`${run}__results.csv`; a.click(); setTimeout(()=>URL.revokeObjectURL(url),1500); }
+
+  // modal
+  const modal=document.getElementById('modal'), modalImg=document.getElementById('modalImg');
+  let scale=1, dragging=false, lastX=0, lastY=0, offX=0, offY=0;
+  function openModal(src,alt){ scale=1; offX=0; offY=0; modalImg.style.transform=`translate(0px,0px) scale(1)`; modalImg.src=src; modalImg.alt=alt; modal.classList.add('open'); }
+  function closeModal(){ modal.classList.remove('open'); modalImg.src=''; }
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+  window.addEventListener('keydown', e => { if (e.key==='Escape') closeModal(); });
+  modal.addEventListener('wheel', e => { e.preventDefault(); const d=e.deltaY<0?0.1:-0.1; scale=Math.min(10,Math.max(0.2,scale+d)); modalImg.style.transform=`translate(${offX}px,${offY}px) scale(${scale})`; }, {passive:false});
+  modalImg.addEventListener('mousedown', e => { dragging=true; lastX=e.clientX; lastY=e.clientY; modalImg.style.cursor='grabbing'; });
+  window.addEventListener('mouseup', () => { dragging=false; modalImg.style.cursor='grab'; });
+  window.addEventListener('mousemove', e => { if (!dragging) return; offX += (e.clientX - lastX); offY += (e.clientY - lastY); lastX = e.clientX; lastY = e.clientY; modalImg.style.transform = `translate(${offX}px,${offY}px) scale(${scale})`; });
+
+  // kick off
+  if (API_BASE) loadFromApi();
+})();
+</script>
+</body>
+</html>

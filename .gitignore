@@ -1,0 +1,16 @@
+runs
+Ai.bat
+Ai_env
+dist
+build
+detectron2_repo
+EyresAiPlatform.iss
+EyresAiPlatform.spec
+persist.json
+New folder.zip
+model_2_1_inflator.pth
+Inferences
+.pyc
+__pycache__/
+captures
+

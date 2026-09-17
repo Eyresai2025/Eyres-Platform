@@ -1,0 +1,1326 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "serialNumber": "urn:uuid:85051eb4-f67c-4641-9695-53b7175dbfb6",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-09-17T05:17:31+00:00",
+    "component": {
+      "type": "application",
+      "name": "EYRES AI Inspection Platform",
+      "version": "1.1.6"
+    },
+    "properties": [
+      {
+        "name": "eyres:python",
+        "value": "3.11.0"
+      },
+      {
+        "name": "eyres:platform",
+        "value": "Windows-10-10.0.26200-SP0"
+      }
+    ]
+  },
+  "components": [
+    {
+      "type": "library",
+      "name": "arena-api",
+      "version": "2.7.0",
+      "bom-ref": "pkg:pypi/arena-api@2.7.0",
+      "purl": "pkg:pypi/arena-api@2.7.0",
+      "licenses": [
+        {
+          "license": {
+            "name": "UNKNOWN"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "blinker",
+      "version": "1.9.0",
+      "bom-ref": "pkg:pypi/blinker@1.9.0",
+      "purl": "pkg:pypi/blinker@1.9.0",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT License"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "certifi",
+      "version": "2026.7.22",
+      "bom-ref": "pkg:pypi/certifi@2026.7.22",
+      "purl": "pkg:pypi/certifi@2026.7.22",
+      "licenses": [
+        {
+          "license": {
+            "name": "MPL-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "charset-normalizer",
+      "version": "3.5.1",
+      "bom-ref": "pkg:pypi/charset-normalizer@3.5.1",
+      "purl": "pkg:pypi/charset-normalizer@3.5.1",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "click",
+      "version": "8.5.0",
+      "bom-ref": "pkg:pypi/click@8.5.0",
+      "purl": "pkg:pypi/click@8.5.0",
+      "licenses": [
+        {
+          "license": {
+            "name": "BSD-3-Clause"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "colorama",
+      "version": "0.4.6",
+      "bom-ref": "pkg:pypi/colorama@0.4.6",
+      "purl": "pkg:pypi/colorama@0.4.6",
+      "licenses": [
+        {
+          "license": {
+            "name": "BSD License"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "contourpy",
+      "version": "1.3.3",
+      "bom-ref": "pkg:pypi/contourpy@1.3.3",
+      "purl": "pkg:pypi/contourpy@1.3.3",
+      "licenses": [
+        {
+          "license": {
+            "name": "BSD 3-Clause License\n\n Copyright (c) 2021-2025, ContourPy Developers.\n All rights reserved.\n\n Redistribution and use in source and binary forms, with or without\n modification, are permitted provided that the following conditions are met:\n\n 1. Redistributions of source code must retain the above copy"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "cycler",
+      "version": "0.12.1",
+      "bom-ref": "pkg:pypi/cycler@0.12.1",
+      "purl": "pkg:pypi/cycler@0.12.1",
+      "licenses": [
+        {
+          "license": {
+            "name": "Copyright (c) 2015, matplotlib project\nAll rights reserved.\n\nRedistribution and use in source and binary forms, with or without\nmodification, are permitted provided that the following conditions are met:\n\n* Redistributions of source code must retain the above copyright notice, this\n  list of conditi"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "dnspython",
+      "version": "2.8.0",
+      "bom-ref": "pkg:pypi/dnspython@2.8.0",
+      "purl": "pkg:pypi/dnspython@2.8.0",
+      "licenses": [
+        {
+          "license": {
+            "name": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "filelock",
+      "version": "3.32.3",
+      "bom-ref": "pkg:pypi/filelock@3.32.3",
+      "purl": "pkg:pypi/filelock@3.32.3",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "fire",
+      "version": "0.7.1",
+      "bom-ref": "pkg:pypi/fire@0.7.1",
+      "purl": "pkg:pypi/fire@0.7.1",
+      "licenses": [
+        {
+          "license": {
+            "name": "Apache-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "Flask",
+      "version": "3.1.2",
+      "bom-ref": "pkg:pypi/flask@3.1.2",
+      "purl": "pkg:pypi/flask@3.1.2",
+      "licenses": [
+        {
+          "license": {
+            "name": "BSD-3-Clause"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "fonttools",
+      "version": "4.64.0",
+      "bom-ref": "pkg:pypi/fonttools@4.64.0",
+      "purl": "pkg:pypi/fonttools@4.64.0",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "fsspec",
+      "version": "2026.7.0",
+      "bom-ref": "pkg:pypi/fsspec@2026.7.0",
+      "purl": "pkg:pypi/fsspec@2026.7.0",
+      "licenses": [
+        {
+          "license": {
+            "name": "BSD-3-Clause"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "idna",
+      "version": "3.19",
+      "bom-ref": "pkg:pypi/idna@3.19",
+      "purl": "pkg:pypi/idna@3.19",
+      "licenses": [
+        {
+          "license": {
+            "name": "BSD-3-Clause"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "itsdangerous",
+      "version": "2.2.0",
+      "bom-ref": "pkg:pypi/itsdangerous@2.2.0",
+      "purl": "pkg:pypi/itsdangerous@2.2.0",
+      "licenses": [
+        {
+          "license": {
+            "name": "BSD License"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "Jinja2",
+      "version": "3.1.6",
+      "bom-ref": "pkg:pypi/jinja2@3.1.6",
+      "purl": "pkg:pypi/jinja2@3.1.6",
+      "licenses": [
+        {
+          "license": {
+            "name": "BSD License"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "kiwisolver",
+      "version": "1.5.1",
+      "bom-ref": "pkg:pypi/kiwisolver@1.5.1",
+      "purl": "pkg:pypi/kiwisolver@1.5.1",
+      "licenses": [
+        {
+          "license": {
+            "name": "=========================\n The Kiwi licensing terms\n=========================\nKiwi is licensed under the terms of the Modified BSD License (also known as\nNew or Revised BSD), as follows:\n\nCopyright (c) 2013-2026, Nucleic Development Team\n\nAll rights reserved.\n\nRedistribution and use in source and bi"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "MarkupSafe",
+      "version": "3.0.3",
+      "bom-ref": "pkg:pypi/markupsafe@3.0.3",
+      "purl": "pkg:pypi/markupsafe@3.0.3",
+      "licenses": [
+        {
+          "license": {
+            "name": "BSD-3-Clause"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "matplotlib",
+      "version": "3.11.1",
+      "bom-ref": "pkg:pypi/matplotlib@3.11.1",
+      "purl": "pkg:pypi/matplotlib@3.11.1",
+      "licenses": [
+        {
+          "license": {
+            "name": "License agreement for matplotlib versions 1.3.0 and later\n =========================================================\n\n 1. This LICENSE AGREEMENT is between the Matplotlib Development Team\n (\"MDT\"), and the Individual or Organization (\"Licensee\") accessing and\n otherwise using matplotlib software in "
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "mpmath",
+      "version": "1.3.0",
+      "bom-ref": "pkg:pypi/mpmath@1.3.0",
+      "purl": "pkg:pypi/mpmath@1.3.0",
+      "licenses": [
+        {
+          "license": {
+            "name": "BSD"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "networkx",
+      "version": "3.6.1",
+      "bom-ref": "pkg:pypi/networkx@3.6.1",
+      "purl": "pkg:pypi/networkx@3.6.1",
+      "licenses": [
+        {
+          "license": {
+            "name": "BSD-3-Clause"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "numpy",
+      "version": "1.26.4",
+      "bom-ref": "pkg:pypi/numpy@1.26.4",
+      "purl": "pkg:pypi/numpy@1.26.4",
+      "licenses": [
+        {
+          "license": {
+            "name": "Copyright (c) 2005-2023, NumPy Developers.\nAll rights reserved.\n\nRedistribution and use in source and binary forms, with or without\nmodification, are permitted provided that the following conditions are\nmet:\n\n    * Redistributions of source code must retain the above copyright\n       notice, this li"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "opencv-python",
+      "version": "4.9.0.80",
+      "bom-ref": "pkg:pypi/opencv-python@4.9.0.80",
+      "purl": "pkg:pypi/opencv-python@4.9.0.80",
+      "licenses": [
+        {
+          "license": {
+            "name": "Apache 2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "packaging",
+      "version": "26.3",
+      "bom-ref": "pkg:pypi/packaging@26.3",
+      "purl": "pkg:pypi/packaging@26.3",
+      "licenses": [
+        {
+          "license": {
+            "name": "Apache-2.0 OR BSD-2-Clause"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "pandas",
+      "version": "2.3.3",
+      "bom-ref": "pkg:pypi/pandas@2.3.3",
+      "purl": "pkg:pypi/pandas@2.3.3",
+      "licenses": [
+        {
+          "license": {
+            "name": "BSD 3-Clause License\n\n Copyright (c) 2008-2011, AQR Capital Management, LLC, Lambda Foundry, Inc. and PyData Development Team\n All rights reserved.\n\n Copyright (c) 2011-2023, Open source contributors.\n\n Redistribution and use in source and binary forms, with or without\n modification, are permitted p"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "pillow",
+      "version": "12.3.0",
+      "bom-ref": "pkg:pypi/pillow@12.3.0",
+      "purl": "pkg:pypi/pillow@12.3.0",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT-CMU"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "pip",
+      "version": "26.2.1",
+      "bom-ref": "pkg:pypi/pip@26.2.1",
+      "purl": "pkg:pypi/pip@26.2.1",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "psutil",
+      "version": "7.1.1",
+      "bom-ref": "pkg:pypi/psutil@7.1.1",
+      "purl": "pkg:pypi/psutil@7.1.1",
+      "licenses": [
+        {
+          "license": {
+            "name": "BSD-3-Clause"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "py-cpuinfo",
+      "version": "9.0.0",
+      "bom-ref": "pkg:pypi/py-cpuinfo@9.0.0",
+      "purl": "pkg:pypi/py-cpuinfo@9.0.0",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "pybboxes",
+      "version": "0.1.6",
+      "bom-ref": "pkg:pypi/pybboxes@0.1.6",
+      "purl": "pkg:pypi/pybboxes@0.1.6",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "pylogix",
+      "version": "1.1.6",
+      "bom-ref": "pkg:pypi/pylogix@1.1.6",
+      "purl": "pkg:pypi/pylogix@1.1.6",
+      "licenses": [
+        {
+          "license": {
+            "name": "Apache License 2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "pymcprotocol",
+      "version": "0.3.0",
+      "bom-ref": "pkg:pypi/pymcprotocol@0.3.0",
+      "purl": "pkg:pypi/pymcprotocol@0.3.0",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "pymodbus",
+      "version": "3.15.0",
+      "bom-ref": "pkg:pypi/pymodbus@3.15.0",
+      "purl": "pkg:pypi/pymodbus@3.15.0",
+      "licenses": [
+        {
+          "license": {
+            "name": "BSD-3-Clause"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "pymongo",
+      "version": "4.18.0",
+      "bom-ref": "pkg:pypi/pymongo@4.18.0",
+      "purl": "pkg:pypi/pymongo@4.18.0",
+      "licenses": [
+        {
+          "license": {
+            "name": "Apache-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "pyparsing",
+      "version": "3.3.2",
+      "bom-ref": "pkg:pypi/pyparsing@3.3.2",
+      "purl": "pkg:pypi/pyparsing@3.3.2",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "PyQt5",
+      "version": "5.15.11",
+      "bom-ref": "pkg:pypi/pyqt5@5.15.11",
+      "purl": "pkg:pypi/pyqt5@5.15.11",
+      "licenses": [
+        {
+          "license": {
+            "name": "GPL v3"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "PyQt5-Qt5",
+      "version": "5.15.2",
+      "bom-ref": "pkg:pypi/pyqt5-qt5@5.15.2",
+      "purl": "pkg:pypi/pyqt5-qt5@5.15.2",
+      "licenses": [
+        {
+          "license": {
+            "name": "LGPL v3"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "PyQt5_sip",
+      "version": "12.19.0",
+      "bom-ref": "pkg:pypi/pyqt5-sip@12.19.0",
+      "purl": "pkg:pypi/pyqt5-sip@12.19.0",
+      "licenses": [
+        {
+          "license": {
+            "name": "BSD-2-Clause"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "python-dateutil",
+      "version": "2.9.0.post0",
+      "bom-ref": "pkg:pypi/python-dateutil@2.9.0.post0",
+      "purl": "pkg:pypi/python-dateutil@2.9.0.post0",
+      "licenses": [
+        {
+          "license": {
+            "name": "Dual License"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "python-snap7",
+      "version": "3.1.2",
+      "bom-ref": "pkg:pypi/python-snap7@3.1.2",
+      "purl": "pkg:pypi/python-snap7@3.1.2",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "pytz",
+      "version": "2026.3.post1",
+      "bom-ref": "pkg:pypi/pytz@2026.3.post1",
+      "purl": "pkg:pypi/pytz@2026.3.post1",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "pywin32",
+      "version": "312",
+      "bom-ref": "pkg:pypi/pywin32@312",
+      "purl": "pkg:pypi/pywin32@312",
+      "licenses": [
+        {
+          "license": {
+            "name": "PSF"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "PyYAML",
+      "version": "6.0.3",
+      "bom-ref": "pkg:pypi/pyyaml@6.0.3",
+      "purl": "pkg:pypi/pyyaml@6.0.3",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "requests",
+      "version": "2.34.2",
+      "bom-ref": "pkg:pypi/requests@2.34.2",
+      "purl": "pkg:pypi/requests@2.34.2",
+      "licenses": [
+        {
+          "license": {
+            "name": "Apache-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "sahi",
+      "version": "0.11.19",
+      "bom-ref": "pkg:pypi/sahi@0.11.19",
+      "purl": "pkg:pypi/sahi@0.11.19",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "scipy",
+      "version": "1.17.1",
+      "bom-ref": "pkg:pypi/scipy@1.17.1",
+      "purl": "pkg:pypi/scipy@1.17.1",
+      "licenses": [
+        {
+          "license": {
+            "name": "Copyright (c) 2001-2002 Enthought, Inc. 2003, SciPy Developers.\n All rights reserved.\n\n Redistribution and use in source and binary forms, with or without\n modification, are permitted provided that the following conditions\n are met:\n\n 1. Redistributions of source code must retain the above copyright"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "seaborn",
+      "version": "0.13.2",
+      "bom-ref": "pkg:pypi/seaborn@0.13.2",
+      "purl": "pkg:pypi/seaborn@0.13.2",
+      "licenses": [
+        {
+          "license": {
+            "name": "BSD License"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "setuptools",
+      "version": "78.1.0",
+      "bom-ref": "pkg:pypi/setuptools@78.1.0",
+      "purl": "pkg:pypi/setuptools@78.1.0",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT License"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "shapely",
+      "version": "2.1.2",
+      "bom-ref": "pkg:pypi/shapely@2.1.2",
+      "purl": "pkg:pypi/shapely@2.1.2",
+      "licenses": [
+        {
+          "license": {
+            "name": "BSD 3-Clause"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "six",
+      "version": "1.17.0",
+      "bom-ref": "pkg:pypi/six@1.17.0",
+      "purl": "pkg:pypi/six@1.17.0",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "sympy",
+      "version": "1.14.0",
+      "bom-ref": "pkg:pypi/sympy@1.14.0",
+      "purl": "pkg:pypi/sympy@1.14.0",
+      "licenses": [
+        {
+          "license": {
+            "name": "BSD"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "termcolor",
+      "version": "3.3.0",
+      "bom-ref": "pkg:pypi/termcolor@3.3.0",
+      "purl": "pkg:pypi/termcolor@3.3.0",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "terminaltables",
+      "version": "3.1.10",
+      "bom-ref": "pkg:pypi/terminaltables@3.1.10",
+      "purl": "pkg:pypi/terminaltables@3.1.10",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "torch",
+      "version": "2.11.0+cu128",
+      "bom-ref": "pkg:pypi/torch@2.11.0+cu128",
+      "purl": "pkg:pypi/torch@2.11.0+cu128",
+      "licenses": [
+        {
+          "license": {
+            "name": "BSD-3-Clause"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "torchaudio",
+      "version": "2.11.0+cu128",
+      "bom-ref": "pkg:pypi/torchaudio@2.11.0+cu128",
+      "purl": "pkg:pypi/torchaudio@2.11.0+cu128",
+      "licenses": [
+        {
+          "license": {
+            "name": "BSD License"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "torchvision",
+      "version": "0.26.0+cu128",
+      "bom-ref": "pkg:pypi/torchvision@0.26.0+cu128",
+      "purl": "pkg:pypi/torchvision@0.26.0+cu128",
+      "licenses": [
+        {
+          "license": {
+            "name": "BSD"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "tqdm",
+      "version": "4.70.0",
+      "bom-ref": "pkg:pypi/tqdm@4.70.0",
+      "purl": "pkg:pypi/tqdm@4.70.0",
+      "licenses": [
+        {
+          "license": {
+            "name": "MPL-2.0 AND MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "typing_extensions",
+      "version": "4.16.0",
+      "bom-ref": "pkg:pypi/typing-extensions@4.16.0",
+      "purl": "pkg:pypi/typing-extensions@4.16.0",
+      "licenses": [
+        {
+          "license": {
+            "name": "PSF-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "tzdata",
+      "version": "2026.3",
+      "bom-ref": "pkg:pypi/tzdata@2026.3",
+      "purl": "pkg:pypi/tzdata@2026.3",
+      "licenses": [
+        {
+          "license": {
+            "name": "Apache-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "ultralytics",
+      "version": "8.3.39",
+      "bom-ref": "pkg:pypi/ultralytics@8.3.39",
+      "purl": "pkg:pypi/ultralytics@8.3.39",
+      "licenses": [
+        {
+          "license": {
+            "name": "AGPL-3.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "ultralytics-thop",
+      "version": "2.1.6",
+      "bom-ref": "pkg:pypi/ultralytics-thop@2.1.6",
+      "purl": "pkg:pypi/ultralytics-thop@2.1.6",
+      "licenses": [
+        {
+          "license": {
+            "name": "AGPL-3.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "urllib3",
+      "version": "2.7.0",
+      "bom-ref": "pkg:pypi/urllib3@2.7.0",
+      "purl": "pkg:pypi/urllib3@2.7.0",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "Werkzeug",
+      "version": "3.1.8",
+      "bom-ref": "pkg:pypi/werkzeug@3.1.8",
+      "purl": "pkg:pypi/werkzeug@3.1.8",
+      "licenses": [
+        {
+          "license": {
+            "name": "BSD-3-Clause"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "wheel",
+      "version": "0.48.0",
+      "bom-ref": "pkg:pypi/wheel@0.48.0",
+      "purl": "pkg:pypi/wheel@0.48.0",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "false"
+        }
+      ]
+    }
+  ]
+}
