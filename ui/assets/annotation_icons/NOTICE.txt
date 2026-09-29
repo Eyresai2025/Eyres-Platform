@@ -1,0 +1,14 @@
+Undo / Redo icons
+===================
+
+Source:
+Google Material Design Icons / Material Icons
+https://github.com/google/material-design-icons
+
+Icons:
+- undo
+- redo
+
+The Material Icons repository makes the icons available under Apache License 2.0.
+These SVGs are bundled locally with EYRES so the application does not require
+internet access at runtime.

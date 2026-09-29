@@ -1,10 +1,10 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:85051eb4-f67c-4641-9695-53b7175dbfb6",
+  "serialNumber": "urn:uuid:085a78c9-5a63-4955-8a14-1ebc59d1b93f",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-09-17T05:17:31+00:00",
+    "timestamp": "2026-09-28T10:54:50+00:00",
     "component": {
       "type": "application",
       "name": "EYRES AI Inspection Platform",
@@ -799,6 +799,66 @@
         {
           "name": "eyres:direct-dependency",
           "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "PyQt6",
+      "version": "6.11.0",
+      "bom-ref": "pkg:pypi/pyqt6@6.11.0",
+      "purl": "pkg:pypi/pyqt6@6.11.0",
+      "licenses": [
+        {
+          "license": {
+            "name": "GPL-3.0-only"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "PyQt6-Qt6",
+      "version": "6.11.2",
+      "bom-ref": "pkg:pypi/pyqt6-qt6@6.11.2",
+      "purl": "pkg:pypi/pyqt6-qt6@6.11.2",
+      "licenses": [
+        {
+          "license": {
+            "name": "LGPL v3"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "PyQt6_sip",
+      "version": "13.12.0",
+      "bom-ref": "pkg:pypi/pyqt6-sip@13.12.0",
+      "purl": "pkg:pypi/pyqt6-sip@13.12.0",
+      "licenses": [
+        {
+          "license": {
+            "name": "BSD-2-Clause"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "eyres:direct-dependency",
+          "value": "false"
         }
       ]
     },
